@@ -3,12 +3,10 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'; // Pages
 import { Header } from './components/Header';
 import { Home } from './components/Home';
-import { LazyLoadingExample } from './components/LazyLoadingExample';
-import { RouterExample } from './components/RouterExample';
 import { SideMenu } from './components/SideMenu';
-import { StyledComponentExample } from './components/StyledComponentExample';
-import { Usage } from './components/Usage';
-import { UsersList } from './components/UsersList';
+import { ReactStateExampleRoot } from './components/react-state-example/ReactStateExampleRoot';
+import ContextExampleRoot from './components/context-example/ContextExampleRoot';
+import MobxRoot from './components/mobx-example/MobxRoot';
 
 export const App = () => {
 
@@ -22,11 +20,15 @@ export const App = () => {
         <Toolbar />
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/usage' element={<Usage />} />
-            <Route path='/fetch-example' element={<UsersList />} />
-            <Route path='/lazy-example' element={<LazyLoadingExample />} />
-            <Route path='/styled-example' element={<StyledComponentExample />} />
-            <Route path='/router-example/:slug' element={<RouterExample />} />
+          </Routes>
+          <Routes>
+            <Route path='/react-state' element={<ReactStateExampleRoot />} />
+          </Routes>
+          <Routes>
+            <Route path='/context' element={<ContextExampleRoot />} />
+          </Routes>
+          <Routes>
+            <Route path='/mobx' element={<MobxRoot />} />
           </Routes>
         </Box>
       </Box>

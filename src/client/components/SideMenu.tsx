@@ -29,38 +29,32 @@ export const SideMenu: React.FC = () => {
           </ListItemIcon>
           <ListItemText primary='Home' />
         </ListItem>
-        <ListItem button component={RouterLink} to='/usage'>
-          <ListItemIcon>
-            <UsageIcon />
-          </ListItemIcon>
-          <ListItemText primary='Usage' />
-        </ListItem>
       </List>
       <Divider />
       <List>
-        <ListItem button component={RouterLink} to='/fetch-example'>
+        <ListItem button component={RouterLink} to='/react-state'>
+          <ListItemIcon>
+            <UsageIcon />
+          </ListItemIcon>
+          <ListItemText primary='In React' />
+        </ListItem>
+        <ListItem button component={RouterLink} to='/context'>
           <ListItemIcon>
             <FetchIcon />
           </ListItemIcon>
-          <ListItemText primary='Fetch' />
+          <ListItemText primary='Context' />
         </ListItem>
-        <ListItem button component={RouterLink} to='/lazy-example'>
+        <ListItem button component={RouterLink} to='/zustand'>
           <ListItemIcon>
             <LazyIcon />
           </ListItemIcon>
-          <ListItemText primary='Lazy Loading' />
+          <ListItemText primary='Zustand' />
         </ListItem>
-        <ListItem button component={RouterLink} to='/styled-example'>
+        <ListItem button component={RouterLink} to='/mobx'>
           <ListItemIcon>
             <StyledIcon />
           </ListItemIcon>
-          <ListItemText primary='Styled Components' />
-        </ListItem>
-        <ListItem button component={RouterLink} to='/router-example/1234'>
-          <ListItemIcon>
-            <RouterIcon />
-          </ListItemIcon>
-          <ListItemText primary='React-Router' />
+          <ListItemText primary='Mobx' />
         </ListItem>
       </List>
     </Drawer>

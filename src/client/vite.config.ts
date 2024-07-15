@@ -8,7 +8,16 @@ export default defineConfig({
       '@shared': path.resolve(__dirname, '../../src/shared'),
     },
   },
-  plugins: [react()],
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          ['@babel/plugin-proposal-decorators', { legacy: true }],
+          ['@babel/plugin-proposal-class-properties', { loose: true }],
+        ],
+      },
+    }),
+  ],
   root: './src/client',
   build: {
     outDir: '../../dist/client',
