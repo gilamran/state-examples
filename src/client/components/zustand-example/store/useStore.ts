@@ -31,62 +31,66 @@ interface StoreState {
   toggleTaskCompletion: (projectId: number, taskId: number) => void;
 }
 
-export const useStore = create<StoreState>((set, get) => ({
-  users: [],
-  projects: [],
-  addUser: (name) =>
-    set((state) => ({
-      users: [...state.users, { id: Math.random(), name, assignedProjects: [] }],
-    })),
-  removeUser: (userId) =>
-    set((state) => ({
-      users: state.users.filter((user) => user.id !== userId),
-    })),
-  addProject: (name) =>
-    set((state) => ({
-      projects: [...state.projects, { id: Math.random(), name, tasks: [] }],
-    })),
-  removeProject: (projectId) => {
-    for (const user of get().users) {
-      if (user.assignedProjects.includes(projectId)) {
-        useStore.getState().unassignProjectFromUser(user.id, projectId);
+export const useStore = create<StoreState>((set, get) => {
+  return {
+    users: [],
+    projects: [],
+    addUser: (name) =>
+      set((state) => ({
+        users: [...state.users, { id: Math.random(), name, assignedProjects: [] }],
+      })),
+    removeUser: (userId) =>
+      set((state) => ({
+        users: state.users.filter((user) => user.id !== userId),
+      })),
+    addProject: (name) =>
+      set((state) => ({
+        projects: [...state.projects, { id: Math.random(), name, tasks: [] }],
+      })),
+    removeProject: (projectId) => {
+      for (const user of get().users) {
+        if (user.assignedProjects.includes(projectId)) {
+          useStore.getState().unassignProjectFromUser(user.id, projectId);
+        }
       }
-    }
-    set((state) => ({
-      projects: state.projects.filter((project) => project.id !== projectId),
-    }));
-  },
-  assignProjectToUser: (userId, projectId) =>
-    set((state) => ({
-      users: state.users.map((user) =>
-        user.id === userId ? { ...user, assignedProjects: [...user.assignedProjects, projectId] } : user,
-      ),
-    })),
-  unassignProjectFromUser: (userId, projectId) =>
-    set((state) => ({
-      users: state.users.map((user) =>
-        user.id === userId ? { ...user, assignedProjects: user.assignedProjects.filter((id) => id !== projectId) } : user,
-      ),
-    })),
-  addTask: (projectId, todo: string) =>
-    set((state) => ({
-      projects: state.projects.map((project) =>
-        project.id === projectId
-          ? { ...project, tasks: [...project.tasks, { id: Math.random(), todo, isCompleted: false }] }
-          : project,
-      ),
-    })),
-  toggleTaskCompletion: (projectId, taskId) =>
-    set((state) => ({
-      projects: state.projects.map((project) =>
-        project.id === projectId
-          ? {
-              ...project,
-              tasks: project.tasks.map((task) =>
-                task.id === taskId ? { ...task, isCompleted: !task.isCompleted } : task,
-              ),
-            }
-          : project,
-      ),
-    })),
-}));
+      set((state) => ({
+        projects: state.projects.filter((project) => project.id !== projectId),
+      }));
+    },
+    assignProjectToUser: (userId, projectId) =>
+      set((state) => ({
+        users: state.users.map((user) =>
+          user.id === userId ? { ...user, assignedProjects: [...user.assignedProjects, projectId] } : user,
+        ),
+      })),
+    unassignProjectFromUser: (userId, projectId) =>
+      set((state) => ({
+        users: state.users.map((user) =>
+          user.id === userId
+            ? { ...user, assignedProjects: user.assignedProjects.filter((id) => id !== projectId) }
+            : user,
+        ),
+      })),
+    addTask: (projectId, todo: string) =>
+      set((state) => ({
+        projects: state.projects.map((project) =>
+          project.id === projectId
+            ? { ...project, tasks: [...project.tasks, { id: Math.random(), todo, isCompleted: false }] }
+            : project,
+        ),
+      })),
+    toggleTaskCompletion: (projectId, taskId) =>
+      set((state) => ({
+        projects: state.projects.map((project) =>
+          project.id === projectId
+            ? {
+                ...project,
+                tasks: project.tasks.map((task) =>
+                  task.id === taskId ? { ...task, isCompleted: !task.isCompleted } : task,
+                ),
+              }
+            : project,
+        ),
+      })),
+  };
+});
