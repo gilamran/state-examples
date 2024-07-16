@@ -15,7 +15,7 @@ export interface IProject {
 export interface IUser {
   id: number;
   name: string;
-  projects: number[];
+  assignedProjects: number[];
 }
 
 interface StoreState {
@@ -37,7 +37,7 @@ export const useStore = create<StoreState>((set, get) => ({
   projects: [],
   addUser: (name) =>
     set((state) => ({
-      users: [...state.users, { id: Math.random(), name, projects: [] }],
+      users: [...state.users, { id: Math.random(), name, assignedProjects: [] }],
     })),
   removeUser: (userId) =>
     set((state) => ({
@@ -49,7 +49,7 @@ export const useStore = create<StoreState>((set, get) => ({
     })),
   removeProject: (projectId) => {
     for (const user of get().users) {
-      if (user.projects.includes(projectId)) {
+      if (user.assignedProjects.includes(projectId)) {
         useStore.getState().unassignProjectFromUser(user.id, projectId);
       }
     }
@@ -60,13 +60,13 @@ export const useStore = create<StoreState>((set, get) => ({
   assignProjectToUser: (userId, projectId) =>
     set((state) => ({
       users: state.users.map((user) =>
-        user.id === userId ? { ...user, projects: [...user.projects, projectId] } : user,
+        user.id === userId ? { ...user, assignedProjects: [...user.assignedProjects, projectId] } : user,
       ),
     })),
   unassignProjectFromUser: (userId, projectId) =>
     set((state) => ({
       users: state.users.map((user) =>
-        user.id === userId ? { ...user, projects: user.projects.filter((id) => id !== projectId) } : user,
+        user.id === userId ? { ...user, assignedProjects: user.assignedProjects.filter((id) => id !== projectId) } : user,
       ),
     })),
   addTask: (projectId, todo: string) =>

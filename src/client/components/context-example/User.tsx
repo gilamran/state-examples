@@ -1,17 +1,14 @@
 import ClearIcon from '@mui/icons-material/Clear';
 import { Card, CardContent, CardHeader, IconButton } from '@mui/material';
 import React from 'react';
-import { useStore, IUser } from './store/useStore';
+import { useStore, IUser } from './StoreProvider';
 
 interface IProps {
   user: IUser;
 }
 
 export function User({ user }: IProps) {
-  const removeUser = useStore((state) => state.removeUser);
-  const projects = useStore((state) => state.projects);
-  const assignProjectToUser = useStore((state) => state.assignProjectToUser);
-  const unassignProjectFromUser = useStore((state) => state.unassignProjectFromUser);
+  const { projects, removeUser, assignProjectToUser, unassignProjectFromUser } = useStore();
 
   const assignedProjects = projects.filter((p) => !user.assignedProjects.includes(p.id));
 

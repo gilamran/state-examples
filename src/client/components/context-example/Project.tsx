@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, IconButton } from '@mui/material';
 import chance from 'chance';
 import React from 'react';
-import { useStore, IProject } from './store/useStore';
-import { TasksList } from './TasksList';
 import ClearIcon from '@mui/icons-material/Clear';
+import { IProject, useStore } from './StoreProvider';
+import { TasksList } from './TasksList';
 
 const c = new chance.Chance();
 
@@ -12,8 +12,7 @@ interface IProps {
 }
 
 export function Project({ project }: IProps) {
-  const removeProject = useStore((state) => state.removeProject);
-  const addTask = useStore((state) => state.addTask);
+  const { removeProject, addTask } = useStore();
 
   const handleAddTask = () => {
     addTask(project.id, `Fly to ${c.city()}`);
