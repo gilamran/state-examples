@@ -1,8 +1,6 @@
 import React from 'react';
-import { User } from './UsersList';
+import { IUser } from './UsersList';
 
-function RemoveUserButton({ user, onRemoveUser }: { user: User; onRemoveUser: (userId: number) => void }) {
+export function RemoveUserButton({ user, onRemoveUser }: { user: IUser; onRemoveUser: (userId: number) => void }) {
   return <button onClick={() => onRemoveUser(user.id)}>X</button>;
 }
-
-export default RemoveUserButton;

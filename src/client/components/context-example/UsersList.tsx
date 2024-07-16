@@ -1,15 +1,20 @@
 import React from 'react';
-import UserActionsBox from './UserActionsBox';
+import { UserActionsBox } from './UserActionsBox';
 import { useUsers } from './UsersProvider';
 import chance from 'chance';
+import { Button } from '@mui/material';
 
 const c = new chance.Chance();
 
-function UsersList() {
+export function UsersList() {
   const { users, addUser } = useUsers();
 
   return (
     <div>
+      <Button variant='contained' onClick={() => addUser(c.name())}>
+        Add User
+      </Button>
+      <hr />
       {users.map((user) => {
         return (
           <>
@@ -20,9 +25,6 @@ function UsersList() {
           </>
         );
       })}
-      <button onClick={() => addUser(c.name())}>Add User</button>
     </div>
   );
 }
-
-export default UsersList;

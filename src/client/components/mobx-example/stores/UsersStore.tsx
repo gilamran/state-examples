@@ -1,26 +1,21 @@
-import { observable, makeObservable, action } from "mobx";
+import { observable, makeObservable, action } from 'mobx';
+import { UserStore } from './UserStore';
 
-export interface User {
-    id: number;
-    name: string;
+export class UsersStore {
+  @observable public users: UserStore[] = [];
+
+  constructor() {
+    makeObservable(this);
+  }
+
+  @action.bound
+  public addUser(name: string) {
+    const user = new UserStore(name);
+    this.users.push(user);
+  }
+
+  @action.bound
+  public removeUser(id: number) {
+    this.users = this.users.filter((user) => user.id !== id);
+  }
 }
-
-class UsersStore {
-    @observable public users: User[] = [];
-
-    constructor() {
-        makeObservable(this);
-    }
-
-    @action
-    public addUser(name: string) {
-        this.users.push({ id: Math.random(), name });
-    }
-
-    @action
-    public removeUser(id: number) {
-        this.users = this.users.filter((user) => user.id !== id);
-    }
-}
-
-export default UsersStore;

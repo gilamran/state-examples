@@ -1,35 +1,21 @@
-import { action, makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from 'mobx';
+import { TaskStore } from './TaskStore';
 
-export interface ITask {
-    id: number;
-    isCompleted: boolean;
-    todo: string;
+export class TasksStore {
+  @observable public tasks: TaskStore[] = [];
+
+  constructor() {
+    makeObservable(this);
+  }
+
+  @action.bound
+  public addTask(todo: string) {
+    const task = new TaskStore(todo);
+    this.tasks.push(task);
+  }
+
+  @action.bound
+  public removeTask(id: number) {
+    this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
 }
-
-class TasksStore {
-    @observable public tasks: ITask[] = [];
-
-    constructor() {
-        makeObservable(this);
-    }
-
-    @action
-    public addTask(todo: string) {
-        this.tasks.push({ id: this.tasks.length + 1, todo, isCompleted: false });
-    }
-
-    @action
-    public removeTask(id: number) {
-        this.tasks = this.tasks.filter((task) => task.id !== id);
-    }
-
-    @action
-    public toggleTaskCompletion(id: number) {
-        const task = this.tasks.find((t) => t.id === id);
-        if (task) {
-            task.isCompleted = !task.isCompleted;
-        }
-    }
-}
-
-export default TasksStore;

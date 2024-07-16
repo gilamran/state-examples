@@ -1,29 +1,34 @@
 import { observable, makeObservable, action } from 'mobx';
-import TasksStore from './TasksStore';
+import { TasksStore } from './TasksStore';
+import { UsersStore } from './UsersStore';
 
 export interface IProject {
-    id: number;
-    name: string;
-    tasks: TasksStore;
+  id: number;
+  name: string;
+  tasks: TasksStore;
 }
 
-class ProjectsStore {
-    @observable public projects: IProject[] = [];
+export class ProjectsStore {
+  @observable public projects: IProject[] = [];
 
-    constructor() {
-        makeObservable(this);
-    }
+  constructor(private usersStore: UsersStore) {
+    makeObservable(this);
+  }
 
-    @action
-    public addProject(name: string) {
-        const tasks = new TasksStore();
-        this.projects.push({ id: this.projects.length + 1, name, tasks });
-    }
+  @action.bound
+  public addProject(name: string) {
+    const tasks = new TasksStore();
+    const id = Math.random();
+    this.projects.push({ id, name, tasks });
+  }
 
-    @action
-    public removeProject(id: number) {
-        this.projects = this.projects.filter((task) => task.id !== id);
-    }
+  @action.bound
+  public removeProject(id: number) {
+    this.projects = this.projects.filter((task) => task.id !== id);
+    this.usersStore.users.forEach((user) => {
+      if (user.assignedProjects.includes(id)) {
+        user.unassignProject(id);
+      }
+    });
+  }
 }
-
-export default ProjectsStore;

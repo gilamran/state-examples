@@ -1,9 +1,9 @@
 import React from 'react';
-import UsersList from './UsersList';
-import UsersProvider from './UsersProvider';
+import { UsersList } from './UsersList';
+import { UsersProvider } from './UsersProvider';
 import { Grid, Card, CardHeader, CardContent } from '@mui/material';
 
-function ContextExampleRoot() {
+export function ContextExampleRoot() {
   return (
     <Grid item xs={12}>
       <Card>
@@ -17,5 +17,3 @@ function ContextExampleRoot() {
     </Grid>
   );
 }
-
-export default ContextExampleRoot;

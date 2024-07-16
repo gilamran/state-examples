@@ -1,9 +1,7 @@
 import React from 'react';
-import RemoveUserButton from './RemoveUserButton';
-import { User } from './UsersProvider';
+import { RemoveUserButton } from './RemoveUserButton';
+import { IUser } from './UsersProvider';
 
-function UserActionsBox({ user }: { user: User }) {
+export function UserActionsBox({ user }: { user: IUser }) {
   return <RemoveUserButton user={user} />;
 }
-
-export default UserActionsBox;

@@ -11,9 +11,8 @@ export const Home: React.FC = () => {
       <Card>
         <CardHeader title='States Examples' />
         <CardContent>
-          <Typography>
-            Several ways to handle states in React
-          </Typography>
+          <Typography>This is the state that we'll try to represent in several state styles:</Typography>
+          <img src='/assets/diagram.jpg' />
         </CardContent>
       </Card>
     </Grid>

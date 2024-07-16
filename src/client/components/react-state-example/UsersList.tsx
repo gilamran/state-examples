@@ -1,18 +1,19 @@
 import { useCallback, useState } from 'react';
 
-import UserActionsBox from './UserActionsBox';
+import { UserActionsBox } from './UserActionsBox';
 import React from 'react';
 import chance from 'chance';
+import { Button } from '@mui/material';
 
 const c = new chance.Chance();
 
-export interface User {
+export interface IUser {
   id: number;
   name: string;
 }
 
-function UsersList() {
-  const [users, setUsers] = useState<User[]>([]);
+export function UsersList() {
+  const [users, setUsers] = useState<IUser[]>([]);
 
   const addUser = useCallback(
     async (userName: string) => {
@@ -32,6 +33,10 @@ function UsersList() {
 
   return (
     <div>
+      <Button variant='contained' onClick={() => addUser(c.name())}>
+        Add User
+      </Button>
+      <hr />
       {users.map((user) => {
         return (
           <>
@@ -42,9 +47,6 @@ function UsersList() {
           </>
         );
       })}
-      <button onClick={() => addUser(c.name())}>Add User</button>
     </div>
   );
 }
-
-export default UsersList;

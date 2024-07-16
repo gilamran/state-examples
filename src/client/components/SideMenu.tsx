@@ -1,13 +1,12 @@
-import FetchIcon from '@mui/icons-material/CloudDownload';
+import ContextIcon from '@mui/icons-material/SwapVert';
 import UsageIcon from '@mui/icons-material/Code';
 import HomeIcon from '@mui/icons-material/Home';
-import RouterIcon from '@mui/icons-material/Storage';
-import StyledIcon from '@mui/icons-material/Style';
-import LazyIcon from '@mui/icons-material/SystemUpdateAlt';
+import MobXIcon from '@mui/icons-material/Share';
+import ZustandIcon from '@mui/icons-material/DataObject';
 import { Divider, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import Toolbar from '@mui/material/Toolbar';
 
 const drawerWidth = 240;
 
@@ -40,19 +39,19 @@ export const SideMenu: React.FC = () => {
         </ListItem>
         <ListItem button component={RouterLink} to='/context'>
           <ListItemIcon>
-            <FetchIcon />
+            <ContextIcon />
           </ListItemIcon>
           <ListItemText primary='Context' />
         </ListItem>
         <ListItem button component={RouterLink} to='/zustand'>
           <ListItemIcon>
-            <LazyIcon />
+            <ZustandIcon />
           </ListItemIcon>
           <ListItemText primary='Zustand' />
         </ListItem>
         <ListItem button component={RouterLink} to='/mobx'>
           <ListItemIcon>
-            <StyledIcon />
+            <MobXIcon />
           </ListItemIcon>
           <ListItemText primary='Mobx' />
         </ListItem>
