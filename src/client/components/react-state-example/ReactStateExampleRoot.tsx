@@ -130,22 +130,27 @@ export function ReactStateExampleRoot() {
   );
 
   return (
-    <div style={{ display: 'flex', gap: 120 }}>
-      <UsersList
-        users={users}
-        projects={projects}
-        addUser={addUser}
-        removeUser={removeUser}
-        assignProjectToUser={assignProjectToUser}
-        unassignProjectFromUser={unassignProjectFromUser}
-      />
-      <ProjectsList
-        addProject={addProject}
-        removeProject={removeProject}
-        addTask={addTask}
-        toggleTaskCompletion={toggleTaskCompletion}
-        projects={projects}
-      />
-    </div>
+    <>
+      <h1>
+        <u>State in React</u>
+      </h1>
+      <div style={{ display: 'flex', gap: 120 }}>
+        <UsersList
+          users={users}
+          projects={projects}
+          addUser={addUser}
+          removeUser={removeUser}
+          assignProjectToUser={assignProjectToUser}
+          unassignProjectFromUser={unassignProjectFromUser}
+        />
+        <ProjectsList
+          addProject={addProject}
+          removeProject={removeProject}
+          addTask={addTask}
+          toggleTaskCompletion={toggleTaskCompletion}
+          projects={projects}
+        />
+      </div>
+    </>
   );
 }

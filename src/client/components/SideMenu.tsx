@@ -8,7 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-const drawerWidth = 240;
+const drawerWidth = 180;
 
 export const SideMenu: React.FC = () => {
   return (

@@ -6,6 +6,9 @@ import { ProjectsList } from './ProjectsList';
 export function MobxExampleRoot() {
   return (
     <StoresProvider>
+      <h1>
+        <u>State in MobX</u>
+      </h1>
       <div style={{ display: 'flex', gap: 120 }}>
         <UsersList />
         <ProjectsList />
