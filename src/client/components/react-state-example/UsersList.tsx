@@ -1,52 +1,47 @@
-import { useCallback, useState } from 'react';
-
-import { UserActionsBox } from './UserActionsBox';
-import React from 'react';
 import chance from 'chance';
-import { Button } from '@mui/material';
+import React from 'react';
+import { IProject, IUser } from './ReactStateExampleRoot';
+import { User } from './User';
 
 const c = new chance.Chance();
 
-export interface IUser {
-  id: number;
-  name: string;
+interface IProps {
+  users: IUser[];
+  projects: IProject[];
+  addUser: (name: string) => void;
+  removeUser: (userId: number) => void;
+  assignProjectToUser: (userId: number, projectId: number) => void;
+  unassignProjectFromUser: (userId: number, projectId: number) => void;
 }
 
-export function UsersList() {
-  const [users, setUsers] = useState<IUser[]>([]);
-
-  const addUser = useCallback(
-    async (userName: string) => {
-      const user = { id: Math.random(), name: userName };
-      setUsers([...users, user]);
-    },
-    [users],
-  );
-
-  const removeUser = useCallback(
-    async (userId: number) => {
-      const newUsers = users.filter((user) => user.id !== userId);
-      setUsers(newUsers);
-    },
-    [users],
-  );
+export function UsersList({
+  users,
+  projects,
+  addUser,
+  removeUser,
+  assignProjectToUser,
+  unassignProjectFromUser,
+}: IProps) {
+  const handleAddUser = () => {
+    addUser(c.name());
+  };
 
   return (
     <div>
-      <Button variant='contained' onClick={() => addUser(c.name())}>
-        Add User
-      </Button>
-      <hr />
-      {users.map((user) => {
-        return (
-          <>
-            <div key={user.id}>
-              <span>{user.name}</span>
-              <UserActionsBox user={user} onRemoveUser={removeUser} />
-            </div>
-          </>
-        );
-      })}
+      <h1>
+        Users <button onClick={handleAddUser}>+</button>
+      </h1>
+
+      {users.map((user) => (
+        <User
+          key={user.id}
+          user={user}
+          projects={projects}
+          removeUser={removeUser}
+          assignProjectToUser={assignProjectToUser}
+          unassignProjectFromUser={unassignProjectFromUser}
+        />
+      ))}
     </div>
   );
 }

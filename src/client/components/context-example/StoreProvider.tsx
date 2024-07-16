@@ -28,7 +28,6 @@ export interface IStoreProviderContextData {
   assignProjectToUser: (userId: number, projectId: number) => void;
   unassignProjectFromUser: (userId: number, projectId: number) => void;
   addTask: (projectId: number, todo: string) => void;
-  removeTask: (projectId: number, taskId: number) => void;
   toggleTaskCompletion: (projectId: number, taskId: number) => void;
 }
 
@@ -52,7 +51,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = function StorePr
 
   // Users Actions
   const addUser = useCallback(
-    async (name: string) => {
+    (name: string) => {
       const user = { id: Math.random(), name, assignedProjects: [] };
       setUsers([...users, user]);
     },
@@ -60,7 +59,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = function StorePr
   );
 
   const removeUser = useCallback(
-    async (userId: number) => {
+    (userId: number) => {
       const newUsers = users.filter((user) => user.id !== userId);
       setUsers(newUsers);
     },
@@ -68,9 +67,8 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = function StorePr
   );
 
   // Projects Actions
-
   const assignProjectToUser = useCallback(
-    async (userId: number, projectId: number) => {
+    (userId: number, projectId: number) => {
       const newUsers = users.map((user) => {
         if (user.id === userId) {
           return { ...user, assignedProjects: [...user.assignedProjects, projectId] };
@@ -83,7 +81,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = function StorePr
   );
 
   const unassignProjectFromUser = useCallback(
-    async (userId: number, projectId: number) => {
+    (userId: number, projectId: number) => {
       const newUsers = users.map((user) => {
         if (user.id === userId) {
           return { ...user, assignedProjects: user.assignedProjects.filter((id) => id !== projectId) };
@@ -96,7 +94,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = function StorePr
   );
 
   const addProject = useCallback(
-    async (name: string) => {
+    (name: string) => {
       const project = { id: Math.random(), name, tasks: [] };
       setProjects([...projects, project]);
     },
@@ -104,7 +102,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = function StorePr
   );
 
   const removeProject = useCallback(
-    async (projectId: number) => {
+    (projectId: number) => {
       for (const user of users) {
         if (user.assignedProjects.includes(projectId)) {
           unassignProjectFromUser(user.id, projectId);
@@ -119,7 +117,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = function StorePr
 
   // Tasks Actions
   const addTask = useCallback(
-    async (projectId: number, todo: string) => {
+    (projectId: number, todo: string) => {
       const newProjects = projects.map((project) => {
         if (project.id === projectId) {
           return { ...project, tasks: [...project.tasks, { id: Math.random(), todo, isCompleted: false }] };
@@ -131,21 +129,8 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = function StorePr
     [projects],
   );
 
-  const removeTask = useCallback(
-    async (projectId: number, taskId: number) => {
-      const newProjects = projects.map((project) => {
-        if (project.id === projectId) {
-          return { ...project, tasks: project.tasks.filter((task) => task.id !== taskId) };
-        }
-        return project;
-      });
-      setProjects(newProjects);
-    },
-    [projects],
-  );
-
   const toggleTaskCompletion = useCallback(
-    async (projectId: number, taskId: number) => {
+    (projectId: number, taskId: number) => {
       const newProjects = projects.map((project) => {
         if (project.id === projectId) {
           return {
@@ -173,7 +158,6 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = function StorePr
       assignProjectToUser,
       unassignProjectFromUser,
       addTask,
-      removeTask,
       toggleTaskCompletion,
     };
   }, [users, projects, addUser, removeUser, addProject, removeProject]);

@@ -28,7 +28,6 @@ interface StoreState {
   assignProjectToUser: (userId: number, projectId: number) => void;
   unassignProjectFromUser: (userId: number, projectId: number) => void;
   addTask: (projectId: number, todo: string) => void;
-  removeTask: (projectId: number, taskId: number) => void;
   toggleTaskCompletion: (projectId: number, taskId: number) => void;
 }
 
@@ -74,17 +73,6 @@ export const useStore = create<StoreState>((set, get) => ({
       projects: state.projects.map((project) =>
         project.id === projectId
           ? { ...project, tasks: [...project.tasks, { id: Math.random(), todo, isCompleted: false }] }
-          : project,
-      ),
-    })),
-  removeTask: (projectId, taskId) =>
-    set((state) => ({
-      projects: state.projects.map((project) =>
-        project.id === projectId
-          ? {
-              ...project,
-              tasks: project.tasks.filter((task) => task.id !== taskId),
-            }
           : project,
       ),
     })),
